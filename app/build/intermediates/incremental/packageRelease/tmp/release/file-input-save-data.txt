@@ -1,0 +1,11 @@
+#Internal package file, do not edit.
+#Mon Oct 29 11:28:46 CST 2018
+1.base=D\:\\Workspace\\GitHub\\PayHelper6.6.7_NewAPI\\app\\build\\intermediates\\transforms\\dexMerger\\release\\0
+0.baseType=DIRECTORY
+1.baseType=DIRECTORY
+count=2
+1.set=DEX
+0.path=xposed_init
+0.set=ASSET
+0.base=D\:\\Workspace\\GitHub\\PayHelper6.6.7_NewAPI\\app\\build\\intermediates\\merged_assets\\release\\mergeReleaseAssets\\out
+1.path=classes.dex

@@ -1,0 +1,4 @@
+#Mon Oct 29 17:52:35 CST 2018
+base.0=D\:\\Workspace\\GitHub\\PayHelper6.6.7_NewAPI\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

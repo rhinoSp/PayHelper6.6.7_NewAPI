@@ -1,0 +1,207 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\5ecb907563f31ab378b8e7a5f707c41d\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\50352fb86ef8d10f95ad49be9d600873\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\b0e58653e2340eb5d5348b2c46d80cc2\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\213e5f8eeb615541a3238ccde4bc3d69\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\7de0228699bf38297909266356661862\AndroidManifest.xml:17:1-31:12
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+	package
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:4:5-34
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:1-63:12
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:7:5-78
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:7:22-75
+uses-permission#android.permission.BIND_ACCESSIBILITY_SERVICE
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:8:5-85
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:8:22-82
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:10:5-80
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:10:22-77
+uses-permission#android.permission.ACCESS_SUPERUSER
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:11:5-75
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:11:22-72
+uses-permission#android.permission.WAKE_LOCK
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:12:5-68
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:12:22-65
+uses-permission#android.permission.DISABLE_KEYGUARD
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:13:5-75
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:13:22-72
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:14:5-75
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:14:22-72
+uses-permission#android.permission.GET_TASKS
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:15:5-68
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:15:22-65
+uses-permission#android.permission.INTERNET
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:16:5-67
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:16:22-64
+application
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:19:5-61:19
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\5ecb907563f31ab378b8e7a5f707c41d\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\5ecb907563f31ab378b8e7a5f707c41d\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\50352fb86ef8d10f95ad49be9d600873\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\50352fb86ef8d10f95ad49be9d600873\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\b0e58653e2340eb5d5348b2c46d80cc2\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\b0e58653e2340eb5d5348b2c46d80cc2\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\213e5f8eeb615541a3238ccde4bc3d69\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\213e5f8eeb615541a3238ccde4bc3d69\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\7de0228699bf38297909266356661862\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\7de0228699bf38297909266356661862\AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:23:9-41
+	tools:ignore
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:25:9-48
+	android:icon
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:22:9-45
+	android:allowBackup
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:21:9-35
+	android:theme
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:24:9-40
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:20:9-60
+activity#com.tools.payhelper.MainActivity
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:26:9-34:20
+	android:label
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:28:13-45
+	android:launchMode
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:29:13-48
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:27:13-60
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:30:13-33:29
+action#android.intent.action.MAIN
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:31:17-69
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:31:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:32:17-77
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:32:27-74
+activity#com.tools.payhelper.SettingActivity
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:35:9-39:68
+	android:label
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:37:13-45
+	android:launchMode
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:38:13-48
+	android:theme
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:39:13-66
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:36:13-63
+activity#com.tools.payhelper.tcp.TcpSettingActivity
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:40:9-44:68
+	android:label
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:42:13-45
+	android:launchMode
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:43:13-48
+	android:theme
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:44:13-66
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:41:13-70
+service#com.tools.payhelper.DaemonService
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:46:9-50:49
+	android:process
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:50:13-46
+	android:enabled
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:48:13-35
+	android:exported
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:49:13-37
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:47:13-42
+meta-data#xposedmodule
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:52:9-54:36
+	android:value
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:54:13-33
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:53:13-40
+meta-data#xposeddescription
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:55:9-57:48
+	android:value
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:57:13-45
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:56:13-45
+meta-data#xposedminversion
+ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:58:9-60:34
+	android:value
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:60:13-31
+	android:name
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml:59:13-44
+uses-sdk
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\5ecb907563f31ab378b8e7a5f707c41d\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\5ecb907563f31ab378b8e7a5f707c41d\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\50352fb86ef8d10f95ad49be9d600873\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\50352fb86ef8d10f95ad49be9d600873\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\b0e58653e2340eb5d5348b2c46d80cc2\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\b0e58653e2340eb5d5348b2c46d80cc2\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\213e5f8eeb615541a3238ccde4bc3d69\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\213e5f8eeb615541a3238ccde4bc3d69\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\7de0228699bf38297909266356661862\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\7de0228699bf38297909266356661862\AndroidManifest.xml:21:5-23:58
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:23:9-51
+	android:targetSdkVersion
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+		ADDED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Workspace\GitHub\PayHelper6.6.7_NewAPI\app\src\main\AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\5ecb907563f31ab378b8e7a5f707c41d\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\5ecb907563f31ab378b8e7a5f707c41d\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\50352fb86ef8d10f95ad49be9d600873\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\50352fb86ef8d10f95ad49be9d600873\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\b0e58653e2340eb5d5348b2c46d80cc2\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\b0e58653e2340eb5d5348b2c46d80cc2\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\213e5f8eeb615541a3238ccde4bc3d69\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\213e5f8eeb615541a3238ccde4bc3d69\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\7de0228699bf38297909266356661862\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\7de0228699bf38297909266356661862\AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:support-v4:25.3.1] C:\Users\rhino\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\adbc3c8887a6b199b99ce35de9643d18\AndroidManifest.xml:26:9-47

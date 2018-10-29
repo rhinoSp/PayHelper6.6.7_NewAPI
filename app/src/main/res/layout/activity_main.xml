@@ -1,0 +1,102 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/start_wechat"
+            android:layout_width="0dip"
+            android:layout_height="38dip"
+            android:layout_gravity="center"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="微信" />
+
+        <Button
+            android:id="@+id/start_alipay"
+            android:layout_width="0dip"
+            android:layout_height="38dip"
+            android:layout_gravity="center"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="支付宝" />
+
+        <Button
+            android:id="@+id/start_qq"
+            android:layout_width="0dip"
+            android:layout_height="38dip"
+            android:layout_gravity="center"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="QQ" />
+
+        <Button
+            android:id="@+id/setting"
+            android:layout_width="0dip"
+            android:layout_height="38dip"
+            android:layout_gravity="center"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="程序配置" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/tcp_connect"
+            android:layout_width="0dip"
+            android:layout_height="38dip"
+            android:layout_gravity="center"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="TCP连接" />
+
+        <Button
+            android:id="@+id/tcp_setting"
+            android:layout_width="0dip"
+            android:layout_height="38dip"
+            android:layout_gravity="center"
+            android:layout_margin="5dip"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="TCP连接配置" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@android:color/darker_gray">
+
+        <TextView
+            android:id="@+id/console"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:padding="10dip"
+            android:text="日志输出:"
+            android:textColor="#000000" />
+    </ScrollView>
+
+</LinearLayout>

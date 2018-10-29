@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId "com.tools.payhelper"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:support-v4:25.3.1'
+    implementation files('libs/XposedBridgeAPI-89.jar')
+    implementation files('libs/core_3.2.0.jar')
+    implementation files('libs/jsoup-1.7.2.jar')
+    implementation files('libs/myjson-1.5.jar')
+    implementation files('libs/nanohttpd-2.3.1-SNAPSHOT.jar')
+    implementation files('libs/org.apache.http.legacy.jar')
+//    implementation files('libs/support-annotations-25.0.0.jar')
+    implementation files('libs/xUtils-2.6.14.jar')
+}
