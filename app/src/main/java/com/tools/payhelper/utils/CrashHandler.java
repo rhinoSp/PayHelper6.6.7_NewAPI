@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -21,9 +20,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
-import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * UncaughtException处理�?,当程序发生Uncaught异常的时�?,有该类来接管程序,并记录发送错误报�?.

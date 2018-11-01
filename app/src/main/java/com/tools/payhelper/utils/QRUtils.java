@@ -15,7 +15,6 @@ import com.google.zxing.qrcode.QRCodeReader;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
-import android.util.Log;
 
 public class QRUtils {
 
@@ -38,8 +37,9 @@ public class QRUtils {
         scanBitmap=ImageUtils.getBitmapByFile(path);
         options.inJustDecodeBounds = false;
         int sampleSize = (int) (options.outHeight / (float) 200);
-        if (sampleSize <= 0)
+        if (sampleSize <= 0) {
             sampleSize = 1;
+        }
 
         options.inSampleSize = sampleSize;
 
@@ -53,9 +53,9 @@ public class QRUtils {
         try {
             result = reader.decode(binaryBitmap, hints);
         } catch (NotFoundException e) {
-            Log.e("hxy","NotFoundException");
+            LogUtils.e("NotFoundException");
         }catch (ChecksumException e){
-            Log.e("hxy","ChecksumException");
+            LogUtils.e("ChecksumException");
         } catch (FormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

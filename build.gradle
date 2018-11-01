@@ -15,3 +15,18 @@ allprojects {
         google()
     }
 }
+
+ext {
+
+    compileSdkVersion           = 26
+    minSdkVersion               = 16
+    targetSdkVersion            = 26
+
+    apkApplicationId            = "com.rhino.ui"
+    apkVersionName              = "1.0"
+    apkVersionCode              = 1
+
+    lib_okhttp_okhttp = 'com.squareup.okhttp3:okhttp:3.10.0'
+    lib_okhttp_okio = 'com.squareup.okio:okio:1.14.1'
+
+}

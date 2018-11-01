@@ -1,6 +1,6 @@
 package com.tools.payhelper.tcp;
 
-import android.util.Log;
+import com.tools.payhelper.utils.LogUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -51,28 +51,28 @@ public class TcpConnection extends Thread {
         try {
             while (mSocket != null) {
                 if (mSocket.isClosed()) {
-                    Log.i(TAG, "Server closed.");
+                    LogUtils.i("Server closed.");
                     return;
                 }
                 if (!mSocket.isConnected()) {
-                    Log.i(TAG, "Not connect.");
+                    LogUtils.i("Not connect.");
                     return;
                 }
                 if (!mSocket.isInputShutdown()) {
-                    Log.i(TAG, "The input is shutdown.");
+                    LogUtils.i("The input is shutdown.");
                     return;
                 }
                 String line;
                 if ((line = mBufferedReader.readLine()) != null) {
-                    Log.d(TAG, line);
+                    LogUtils.d(line);
                     line += "\n";
                     if (mOnTcpResultListener != null) {
-                        mOnTcpResultListener.onSuccess(line);
+                        mOnTcpResultListener.onReceive(line);
                     }
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            LogUtils.e(e.toString());
             e.printStackTrace();
             mOnTcpResultListener.onFailed(e.toString());
         }
@@ -84,7 +84,7 @@ public class TcpConnection extends Thread {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-//                Log.e(TAG, "连接成功");
+//                LogUtils.e("连接成功");
 //                mDataInputStream = new DataInputStream(mInputStream);
 //                ThreadPoolProxyFactory.getNormalThreadPoolProxy().execute(new Runnable() {
 //                    @Override
@@ -99,7 +99,7 @@ public class TcpConnection extends Thread {
 //                                int value1 = bytes[0] & 0xff;
 //                                int value2 = bytes[1] & 0xff;
 //                                int iii = (value2 & 0xff) << 8 | ((value1 & 0xff));
-//                                Log.e(TAG, "len = " + len + "  " + value1 + " ** " + value2 + "  " + "  " + iii);
+//                                LogUtils.e("len = " + len + "  " + value1 + " ** " + value2 + "  " + "  " + iii);
 //                                if (mOnTcpResultListener != null) {
 //                                    mOnTcpResultListener.onSuccess(iii);
 //                                }
@@ -107,7 +107,7 @@ public class TcpConnection extends Thread {
 //                        } catch (IOException e) {
 //                            e.printStackTrace();
 //                            mOnTcpResultListener.onFailed(e.toString());
-//                            Log.e(TAG, e.toString());
+//                            LogUtils.e(e.toString());
 //                        }
 //                    }
 //                });
@@ -123,13 +123,16 @@ public class TcpConnection extends Thread {
                     .getInputStream()));
             mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
                     mSocket.getOutputStream())), true);
-            Log.i(TAG, "Connect success");
+            LogUtils.i("Connect success");
+            if (mOnTcpResultListener != null) {
+                mOnTcpResultListener.onConnected();
+            }
 
             // verify
             send(mVerify);
-            Log.i(TAG, "Send verify success");
+            LogUtils.i("Send verify success");
         } catch (IOException e) {
-            Log.e(TAG, e.toString());
+            LogUtils.e(e.toString());
             mOnTcpResultListener.onFailed(e.toString());
             e.printStackTrace();
         }
@@ -176,7 +179,10 @@ public class TcpConnection extends Thread {
     }
 
     public interface OnTcpResultListener {
-        void onSuccess(String result);
+
+        void onConnected();
+
+        void onReceive(String data);
 
         void onFailed(String error);
     }
@@ -197,7 +203,7 @@ public class TcpConnection extends Thread {
     }
 
     public void close() {
-        Log.i(TAG, "close");
+        LogUtils.i("close");
         closeReader(mBufferedReader);
         closeWriter(mPrintWriter);
         closeSocket(mSocket);

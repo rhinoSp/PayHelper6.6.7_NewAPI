@@ -19,6 +19,7 @@ import com.tools.payhelper.tcp.TcpSettingActivity;
 import com.tools.payhelper.utils.AbSharedUtil;
 import com.tools.payhelper.utils.DBManager;
 import com.tools.payhelper.utils.LogToFile;
+import com.tools.payhelper.utils.LogUtils;
 import com.tools.payhelper.utils.MD5;
 import com.tools.payhelper.utils.OrderBean;
 import com.tools.payhelper.utils.PayHelperUtils;
@@ -33,7 +34,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -136,21 +136,27 @@ public class MainActivity extends Activity {
                     public void onClick(View arg0) {
                         String ip = AbSharedUtil.getString(getApplicationContext(), "tcp_ip");
                         int port = AbSharedUtil.getInt(getApplicationContext(), "tcp_port");
-                        if (TextUtils.isEmpty(ip) || port == 0) {
-                            Toast.makeText(getApplicationContext(), "请配置IP和端口", Toast.LENGTH_LONG).show();
+                        String verify = AbSharedUtil.getString(getApplicationContext(), "tcp_verify");
+                        if (TextUtils.isEmpty(ip) || port == 0 || TextUtils.isEmpty(verify)) {
+                            Toast.makeText(getApplicationContext(), "请配置IP、端口和认证信息", Toast.LENGTH_LONG).show();
                             return;
                         }
                         TcpConnection.getInstance().close();
-                        TcpConnection.getInstance().init(ip, port, "1");
+                        TcpConnection.getInstance().init(ip, port, verify);
                         TcpConnection.getInstance().setOnTcpResultListener(new TcpConnection.OnTcpResultListener() {
                             @Override
-                            public void onSuccess(String result) {
-                                Log.d("test", "result = " + result);
+                            public void onConnected() {
+                                LogUtils.d("onConnected");
+                            }
+
+                            @Override
+                            public void onReceive(String data) {
+                                LogUtils.d("data = " + data);
                             }
 
                             @Override
                             public void onFailed(String error) {
-                                Log.d("test", "error = " + error);
+                                LogUtils.d("error = " + error);
                             }
                         });
                         TcpConnection.getInstance().start();

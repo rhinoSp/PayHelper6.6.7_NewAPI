@@ -12,7 +12,6 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 
 /**
  * Created by admin on 2018/3/26.

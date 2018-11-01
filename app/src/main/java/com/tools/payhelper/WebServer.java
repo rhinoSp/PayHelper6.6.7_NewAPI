@@ -9,15 +9,14 @@ import org.json.JSONObject;
 import com.tools.payhelper.utils.AbSharedUtil;
 import com.tools.payhelper.utils.BitmapUtil;
 import com.tools.payhelper.utils.DBManager;
+import com.tools.payhelper.utils.LogUtils;
 import com.tools.payhelper.utils.OrderBean;
 import com.tools.payhelper.utils.PayHelperUtils;
 import com.tools.payhelper.utils.QrCodeBean;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import fi.iki.elonen.NanoHTTPD;
 
 /**
@@ -51,7 +50,7 @@ public class WebServer extends NanoHTTPD {
 
 	@Override
 	public Response serve(IHTTPSession session) {
-		Log.d(TAG, "OnRequest: " + session.getUri());
+		LogUtils.d("OnRequest: " + session.getUri());
 		try {
 			if (REQUEST_ROOT.equals(session.getUri())) {
 				return responseRootPage(session);
@@ -245,7 +244,7 @@ public class WebServer extends NanoHTTPD {
 		builder.append("获取成功，查询订单是否支付：<a href='"+url+"/query?no="+no+"' target='_blank'>查询</a><br><br>");
 		builder.append("</div>");
 		builder.append("</body></html>\n");
-		Log.i("server", builder.toString());
+		LogUtils.i(builder.toString());
 		return newFixedLengthResponse(Response.Status.OK, "text/html;charset=UTF-8", builder.toString());
 	}
 	public Response responseText(IHTTPSession session, String text) {
@@ -255,11 +254,11 @@ public class WebServer extends NanoHTTPD {
 		builder.append(text);
 		builder.append("</div>");
 		builder.append("</body></html>\n");
-		Log.i("server", builder.toString());
+		LogUtils.i(builder.toString());
 		return newFixedLengthResponse(Response.Status.OK, "text/html;charset=UTF-8", builder.toString());
 	}
 	public Response responseJson(IHTTPSession session, String json) {
-		Log.i("server", json);
+		LogUtils.i(json);
 		return newFixedLengthResponse(Response.Status.OK, "application/json;charset=UTF-8", json);
 	}
 

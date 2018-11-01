@@ -17,7 +17,7 @@ import com.tools.payhelper.utils.AbSharedUtil;
 
 public class TcpSettingActivity extends Activity implements OnClickListener {
 
-    private EditText et_ip, et_port;
+    private EditText et_ip, et_port, et_verify;
     private Button bt_save, bt_back;
     private RelativeLayout rl_back;
 
@@ -28,11 +28,15 @@ public class TcpSettingActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_tcp_setting);
         et_ip = (EditText) findViewById(R.id.et_ip);
         et_port = (EditText) findViewById(R.id.et_port);
+        et_verify = (EditText) findViewById(R.id.et_verify);
         if (!TextUtils.isEmpty(AbSharedUtil.getString(getApplicationContext(), "tcp_ip"))) {
             et_ip.setText(AbSharedUtil.getString(getApplicationContext(), "tcp_ip"));
         }
         if (AbSharedUtil.getInt(getApplicationContext(), "tcp_port") != 0) {
             et_port.setText("" + AbSharedUtil.getInt(getApplicationContext(), "tcp_port"));
+        }
+        if (!TextUtils.isEmpty(AbSharedUtil.getString(getApplicationContext(), "tcp_verify"))) {
+            et_verify.setText("" + AbSharedUtil.getString(getApplicationContext(), "tcp_verify"));
         }
 
         bt_save = (Button) findViewById(R.id.save);
@@ -71,7 +75,15 @@ public class TcpSettingActivity extends Activity implements OnClickListener {
                 } else {
                     AbSharedUtil.putInt(getApplicationContext(), "tcp_port", Integer.valueOf(tcp_port));
                 }
+                String tcp_verify = et_verify.getText().toString();
+                if (TextUtils.isEmpty(tcp_verify)) {
+                    Toast.makeText(getApplicationContext(), "认证信息不能为空！", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    AbSharedUtil.putString(getApplicationContext(), "tcp_verify", tcp_verify);
+                }
                 Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_LONG).show();
+                finish();
                 break;
             case R.id.back:
                 finish();
