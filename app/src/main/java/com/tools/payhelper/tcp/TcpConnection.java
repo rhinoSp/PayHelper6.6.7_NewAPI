@@ -1,9 +1,11 @@
 package com.tools.payhelper.tcp;
 
+import com.tools.payhelper.utils.JsonHelper;
 import com.tools.payhelper.utils.LogUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,15 +14,14 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 
 public class TcpConnection extends Thread {
 
-    private static final String TAG = TcpConnection.class.getSimpleName();
+    // auto.1899pay.com  8011
 
     private Socket mSocket;
-//    private InputStream mInputStream;
-//    private DataInputStream mDataInputStream;
     private BufferedReader mBufferedReader = null;
     private PrintWriter mPrintWriter = null;
 
@@ -29,6 +30,7 @@ public class TcpConnection extends Thread {
     private String mVerify;
 
     private OnTcpResultListener mOnTcpResultListener;
+    private long mLastHeartBeatTimestamp;
 
     private static TcpConnection instance = null;
     public static TcpConnection getInstance() {
@@ -42,6 +44,7 @@ public class TcpConnection extends Thread {
         this.mIpAddress = address;
         this.mIpPort = port;
         this.mVerify = verify;
+        this.mLastHeartBeatTimestamp = System.currentTimeMillis();
     }
 
     @Override
@@ -49,25 +52,22 @@ public class TcpConnection extends Thread {
         super.run();
         connect();
         try {
-            while (mSocket != null) {
-                if (mSocket.isClosed()) {
-                    LogUtils.i("Server closed.");
-                    return;
-                }
-                if (!mSocket.isConnected()) {
-                    LogUtils.i("Not connect.");
-                    return;
-                }
+            while (mSocket != null && !mSocket.isClosed() && mSocket.isConnected()) {
                 if (!mSocket.isInputShutdown()) {
-                    LogUtils.i("The input is shutdown.");
-                    return;
-                }
-                String line;
-                if ((line = mBufferedReader.readLine()) != null) {
-                    LogUtils.d(line);
-                    line += "\n";
-                    if (mOnTcpResultListener != null) {
-                        mOnTcpResultListener.onReceive(line);
+                    try {
+                        InputStream inputStream = mSocket.getInputStream();
+                        DataInputStream input = new DataInputStream(inputStream);
+                        byte[] b = new byte[4 * 1024];
+                        int length = 0;
+                        while ((length = input.read(b)) != -1) {
+                            String msg = new String(b, 0, length, "utf-8").replace("\0", "");
+                            LogUtils.d("length = " + length + ", msg = " + msg);
+                            if (!msg.isEmpty() && mOnTcpResultListener != null) {
+                                mOnTcpResultListener.onReceive(msg);
+                            }
+                        }
+                    } catch (SocketTimeoutException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -76,49 +76,12 @@ public class TcpConnection extends Thread {
             e.printStackTrace();
             mOnTcpResultListener.onFailed(e.toString());
         }
-
-//        while (true) {
-//            if (mSocket.isConnected() && !mSocket.isClosed()) {
-//                try {
-//                    mInputStream = mSocket.getInputStream();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                LogUtils.e("连接成功");
-//                mDataInputStream = new DataInputStream(mInputStream);
-//                ThreadPoolProxyFactory.getNormalThreadPoolProxy().execute(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (mDataInputStream == null) {
-//                            return;
-//                        }
-//                        final byte[] bytes = new byte[2];
-//                        int len = 0;
-//                        try {
-//                            while ((len = mDataInputStream.read(bytes)) != -1) {
-//                                int value1 = bytes[0] & 0xff;
-//                                int value2 = bytes[1] & 0xff;
-//                                int iii = (value2 & 0xff) << 8 | ((value1 & 0xff));
-//                                LogUtils.e("len = " + len + "  " + value1 + " ** " + value2 + "  " + "  " + iii);
-//                                if (mOnTcpResultListener != null) {
-//                                    mOnTcpResultListener.onSuccess(iii);
-//                                }
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                            mOnTcpResultListener.onFailed(e.toString());
-//                            LogUtils.e(e.toString());
-//                        }
-//                    }
-//                });
-//            }
-//        }
     }
 
     private void connect() {
         try {
             mSocket = new Socket(mIpAddress, mIpPort);
-            mSocket.setSoTimeout(20000);
+            mSocket.setSoTimeout(3000);
             mBufferedReader = new BufferedReader(new InputStreamReader(mSocket
                     .getInputStream()));
             mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
@@ -129,8 +92,12 @@ public class TcpConnection extends Thread {
             }
 
             // verify
-            send(mVerify);
-            LogUtils.i("Send verify success");
+            String data = JsonHelper.toJson(VerifyData.createVerifyData(mVerify));
+            send(data);
+            LogUtils.i("Send verify success, " + data);
+
+            // heart beat
+            new HeartBeatThread().start();
         } catch (IOException e) {
             LogUtils.e(e.toString());
             mOnTcpResultListener.onFailed(e.toString());
@@ -196,6 +163,7 @@ public class TcpConnection extends Thread {
     }
 
     public void send(String msg) {
+        LogUtils.d("msg: " + msg);
         if (mPrintWriter != null) {
             mPrintWriter.write(msg);
             mPrintWriter.flush();
@@ -208,6 +176,23 @@ public class TcpConnection extends Thread {
         closeWriter(mPrintWriter);
         closeSocket(mSocket);
         instance = null;
+    }
+
+    private class HeartBeatThread extends Thread {
+
+        @Override
+        public void run() {
+            super.run();
+            while (mSocket != null && !mSocket.isClosed() && mSocket.isConnected()) {
+                long currentTimestamp = System.currentTimeMillis();
+                if (mLastHeartBeatTimestamp + 20 * 1000 < currentTimestamp ) {
+                    String data = JsonHelper.toJson(VerifyData.createHeartBeatData());
+                    send(data);
+                    LogUtils.d("Heart beat, " + data);
+                    mLastHeartBeatTimestamp = currentTimestamp;
+                }
+            }
+        }
     }
 
 }

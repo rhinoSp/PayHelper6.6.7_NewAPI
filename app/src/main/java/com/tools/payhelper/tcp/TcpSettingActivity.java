@@ -31,12 +31,18 @@ public class TcpSettingActivity extends Activity implements OnClickListener {
         et_verify = (EditText) findViewById(R.id.et_verify);
         if (!TextUtils.isEmpty(AbSharedUtil.getString(getApplicationContext(), "tcp_ip"))) {
             et_ip.setText(AbSharedUtil.getString(getApplicationContext(), "tcp_ip"));
+        } else {
+            et_ip.setText("auto.1899pay.com");
         }
         if (AbSharedUtil.getInt(getApplicationContext(), "tcp_port") != 0) {
             et_port.setText("" + AbSharedUtil.getInt(getApplicationContext(), "tcp_port"));
+        } else {
+            et_port.setText("8011");
         }
         if (!TextUtils.isEmpty(AbSharedUtil.getString(getApplicationContext(), "tcp_verify"))) {
             et_verify.setText("" + AbSharedUtil.getString(getApplicationContext(), "tcp_verify"));
+        } else {
+            et_verify.setText("5");
         }
 
         bt_save = (Button) findViewById(R.id.save);

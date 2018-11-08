@@ -153,9 +153,9 @@ public class WebServer extends NanoHTTPD {
 				PayHelperUtils.sendAppMsg(money, mark, type, context);
 				int times=0;
 				while (times<30 && qrCodeBeans.size()==0) {
-//					qrCodeBeans=dbManager.saveOrUpdateConfig(money, mark, type);
+					qrCodeBeans=dbManager.FindQrCodes(money, mark, type);
 					times++;
-					Thread.sleep(500);
+					Thread.sleep(10000);
 				}
 				
 				if(qrCodeBeans.size()==0){
@@ -173,6 +173,8 @@ public class WebServer extends NanoHTTPD {
                     if(!TextUtils.isEmpty(account)){
                     	jsonObject.put("account", account);
                     }
+
+                    LogUtils.d(jsonObject.toString());
                     return responseJson(session,jsonObject.toString());
 				}
 			} else if (REQUEST_QUERY.equals(session.getUri())) {

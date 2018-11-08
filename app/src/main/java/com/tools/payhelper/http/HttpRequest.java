@@ -247,11 +247,13 @@ public class HttpRequest {
             }
         }
 
-        for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
-            if (httpUrl.toString().equals(url)) {
-                httpUrl.append("?");
+        if (paramsMap != null) {
+            for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
+                if (httpUrl.toString().equals(url)) {
+                    httpUrl.append("?");
+                }
+                httpUrl.append(entry.getKey() + "=" + entry.getValue() + "&");
             }
-            httpUrl.append(entry.getKey() + "=" + entry.getValue() + "&");
         }
 
         if (!TextUtils.isEmpty(userKey)) {

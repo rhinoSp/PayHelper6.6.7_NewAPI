@@ -1,5 +1,6 @@
 package com.tools.payhelper;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,10 +15,13 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.tools.payhelper.http.HttpRequest;
 import com.tools.payhelper.tcp.TcpConnection;
 import com.tools.payhelper.tcp.TcpSettingActivity;
+import com.tools.payhelper.tcp.VerifyData;
 import com.tools.payhelper.utils.AbSharedUtil;
 import com.tools.payhelper.utils.DBManager;
+import com.tools.payhelper.utils.JsonHelper;
 import com.tools.payhelper.utils.LogToFile;
 import com.tools.payhelper.utils.LogUtils;
 import com.tools.payhelper.utils.MD5;
@@ -41,13 +45,19 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 /**
  * @author SuXiaoliang
  * @ClassName: MainActivity
  * @Description: TODO(这里用一句话描述这个类的作用)
  * @date 2018年6月23日 下午1:26:32
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements TcpConnection.OnTcpResultListener{
+
+    public static final String QQ = "/getpay?money=0.1&mark=k123467789&type=qq";
 
     public static TextView console;
     private static ScrollView scrollView;
@@ -141,25 +151,12 @@ public class MainActivity extends Activity {
                             Toast.makeText(getApplicationContext(), "请配置IP、端口和认证信息", Toast.LENGTH_LONG).show();
                             return;
                         }
-                        TcpConnection.getInstance().close();
-                        TcpConnection.getInstance().init(ip, port, verify);
-                        TcpConnection.getInstance().setOnTcpResultListener(new TcpConnection.OnTcpResultListener() {
-                            @Override
-                            public void onConnected() {
-                                LogUtils.d("onConnected");
-                            }
+//                        TcpConnection.getInstance().close();
+//                        TcpConnection.getInstance().init(ip, port, verify);
+//                        TcpConnection.getInstance().setOnTcpResultListener(MainActivity.this);
+//                        TcpConnection.getInstance().start();
 
-                            @Override
-                            public void onReceive(String data) {
-                                LogUtils.d("data = " + data);
-                            }
-
-                            @Override
-                            public void onFailed(String error) {
-                                LogUtils.d("error = " + error);
-                            }
-                        });
-                        TcpConnection.getInstance().start();
+                        request(QQ);
                     }
                 });
         this.findViewById(R.id.tcp_setting).setOnClickListener(
@@ -222,6 +219,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        TcpConnection.getInstance().close();
         unregisterReceiver(alarmReceiver);
         unregisterReceiver(billReceived);
         mVideoServer.stop();
@@ -266,6 +264,49 @@ public class MainActivity extends Activity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onConnected() {
+        LogUtils.d("onConnected");
+    }
+
+    @Override
+    public void onReceive(String data) {
+        VerifyData verifyData = JsonHelper.fromJson(data, VerifyData.class);
+        if (verifyData == null) {
+            return;
+        }
+        switch (verifyData.type) {
+            case VerifyData.TYPE_Interactive:
+                if (verifyData.InOutData == null || TextUtils.isEmpty(verifyData.InOutData.data)) {
+                    return;
+                }
+                request(verifyData.InOutData.data);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void request(String url) {
+        new HttpRequest().doGet("http://127.0.0.1:8080" + url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                LogUtils.e(e.toString());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String data = response.body().toString();
+                LogUtils.d("data = " + data);
+            }
+        });
+    }
+
+    @Override
+    public void onFailed(String error) {
+        LogUtils.e("error: " + error);
+    }
+
     //自定义接受订单通知广播
     class BillReceived extends BroadcastReceiver {
         @Override
@@ -276,6 +317,8 @@ public class MainActivity extends Activity {
                     String money = intent.getStringExtra("bill_money");
                     String mark = intent.getStringExtra("bill_mark");
                     String type = intent.getStringExtra("bill_type");
+
+                    TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayData(JsonHelper.toJson(new VerifyData.Pay(no, money, mark, type)))));
 
                     DBManager dbManager = new DBManager(CustomApplcation.getInstance().getApplicationContext());
                     String dt = System.currentTimeMillis() + "";
