@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/start_wechat"
