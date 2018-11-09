@@ -78,7 +78,7 @@ public class VerifyData {
 
     public static VerifyData createPayData(String payData) {
         VerifyData data = new VerifyData();
-        data.type = TYPE_KeyOK;
+        data.type = TYPE_Interactive;
         data.InOutData = InOut.pay(payData);
         return data;
     }

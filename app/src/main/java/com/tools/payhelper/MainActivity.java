@@ -58,6 +58,7 @@ import okhttp3.Response;
 public class MainActivity extends Activity implements TcpConnection.OnTcpResultListener{
 
     public static final String QQ = "/getpay?money=0.1&mark=k123467789&type=qq";
+    public static final String ALIPAY = "/getpay?money=0.1&mark=k123467789&type=alipay";
 
     public static TextView console;
     private static ScrollView scrollView;
@@ -151,12 +152,13 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                             Toast.makeText(getApplicationContext(), "请配置IP、端口和认证信息", Toast.LENGTH_LONG).show();
                             return;
                         }
-//                        TcpConnection.getInstance().close();
-//                        TcpConnection.getInstance().init(ip, port, verify);
-//                        TcpConnection.getInstance().setOnTcpResultListener(MainActivity.this);
-//                        TcpConnection.getInstance().start();
+                        TcpConnection.getInstance().close();
+                        TcpConnection.getInstance().init(ip, port, verify);
+                        TcpConnection.getInstance().setOnTcpResultListener(MainActivity.this);
+                        TcpConnection.getInstance().start();
 
-                        request(QQ);
+//                        request(QQ);
+//                        request(ALIPAY);
                     }
                 });
         this.findViewById(R.id.tcp_setting).setOnClickListener(
@@ -296,8 +298,10 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String data = response.body().toString();
+                String data = response.body().string();
                 LogUtils.d("data = " + data);
+
+                TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayData(data)));
             }
         });
     }
@@ -317,8 +321,6 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                     String money = intent.getStringExtra("bill_money");
                     String mark = intent.getStringExtra("bill_mark");
                     String type = intent.getStringExtra("bill_type");
-
-                    TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayData(JsonHelper.toJson(new VerifyData.Pay(no, money, mark, type)))));
 
                     DBManager dbManager = new DBManager(CustomApplcation.getInstance().getApplicationContext());
                     String dt = System.currentTimeMillis() + "";

@@ -20,7 +20,7 @@ import android.text.TextUtils;
 import fi.iki.elonen.NanoHTTPD;
 
 /**
- * 
+ *
 
 * @ClassName: WebServer
 
@@ -80,7 +80,7 @@ public class WebServer extends NanoHTTPD {
 						return responseText(session, "QQ备注长度不能超过12位！");
 					}
 				}
-				
+
 				if(type.equals("alipay") && !PayHelperUtils.isAppRunning(context, "com.eg.android.AlipayGphone")){
 					PayHelperUtils.startAPP(context, "com.eg.android.AlipayGphone");
 				}else if(type.equals("wechat") && !PayHelperUtils.isAppRunning(context, "com.tencent.mm")){
@@ -139,7 +139,7 @@ public class WebServer extends NanoHTTPD {
 						return responseText(session, "QQ备注长度不能超过12位！");
 					}
 				}
-				
+
 				if(type.equals("alipay") && !PayHelperUtils.isAppRunning(context, "com.eg.android.AlipayGphone")){
 					PayHelperUtils.startAPP(context, "com.eg.android.AlipayGphone");
 				}else if(type.equals("wechat") && !PayHelperUtils.isAppRunning(context, "com.tencent.mm")){
@@ -147,7 +147,7 @@ public class WebServer extends NanoHTTPD {
 				}else if(type.equals("qq") && !PayHelperUtils.isAppRunning(context, "com.tencent.mobileqq")){
 					PayHelperUtils.startAPP(context, "com.tencent.mobileqq");
 				}
-				
+
 				List<QrCodeBean> qrCodeBeans=new ArrayList<QrCodeBean>();
 				DBManager dbManager=new DBManager(CustomApplcation.getInstance().getApplicationContext());
 				PayHelperUtils.sendAppMsg(money, mark, type, context);
@@ -155,9 +155,11 @@ public class WebServer extends NanoHTTPD {
 				while (times<30 && qrCodeBeans.size()==0) {
 					qrCodeBeans=dbManager.FindQrCodes(money, mark, type);
 					times++;
-					Thread.sleep(10000);
+					Thread.sleep(500);
 				}
-				
+
+				LogUtils.d("size = " + qrCodeBeans.size());
+
 				if(qrCodeBeans.size()==0){
 					PayHelperUtils.startAPP();
 					jsonObject.put("msg", "获取超时");
