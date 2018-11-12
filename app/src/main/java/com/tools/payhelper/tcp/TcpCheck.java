@@ -1,9 +1,5 @@
 package com.tools.payhelper.tcp;
 
-/**
- * @author LuoLin
- * @since Create on 2018/10/29.
- */
 public class TcpCheck {
 
     public Verify data;
