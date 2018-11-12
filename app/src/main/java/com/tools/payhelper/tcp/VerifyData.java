@@ -56,13 +56,23 @@ public class VerifyData {
         public String money;
         public String mark;
         public String type;
+        public String account;
 
-        public PayResult(String no, String money, String mark, String type) {
+        public PayResult(String no, String money, String mark, String type, String account) {
             this.no = no;
             this.money = money;
             this.mark = mark;
             this.type = type;
+            this.account = account;
         }
+    }
+
+    public static class PayCodeData {
+        public String msg;
+        public String payurl;
+        public String mark;
+        public String money;
+        public String account;
     }
 
     public static VerifyData createVerifyData(String verify) {
@@ -86,10 +96,10 @@ public class VerifyData {
         return data;
     }
 
-    public static VerifyData createPayResultData(String no, String money, String mark, String type) {
+    public static VerifyData createPayResultData(String no, String money, String mark, String type, String account) {
         VerifyData data = new VerifyData();
         data.type = TYPE_SuccTransaction;
-        data.InOutData = InOut.pay(JsonHelper.toJson(new PayResult(no, money, mark, type)));
+        data.InOutData = InOut.pay(JsonHelper.toJson(new PayResult(no, money, mark, type, account)));
         return data;
     }
 

@@ -5,10 +5,13 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import com.google.myjson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -77,6 +80,7 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
     private String currentWechat = "";
     private String currentAlipay = "";
     private String currentQQ = "";
+    private VerifyData.PayCodeData payCodeData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,6 +320,7 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
     }
 
     private void request(String url) {
+        payCodeData = null;
         new HttpRequest().doGet("http://127.0.0.1:8080" + url, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -328,6 +333,7 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                 LogUtils.d("data = " + data);
                 PayHelperUtils.sendmsg(getApplicationContext(), "二维码请求结果：" + data);
 
+                payCodeData = JsonHelper.fromJson(data, VerifyData.PayCodeData.class);
                 TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayData(data)));
             }
         });
@@ -366,7 +372,7 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                     }
                     sendmsg("收到" + typestr + "订单,订单号：" + no + "金额：" + money + "备注：" + mark);
                     notifyapi(type, no, money, mark, dt);
-                    TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayResultData(no, money, mark, type)));
+                    TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayResultData(no, money, mark, type, payCodeData != null ? payCodeData.account : "")));
                 } else if (intent.getAction().contentEquals(QRCODERECEIVED_ACTION)) {
                     String money = intent.getStringExtra("money");
                     String mark = intent.getStringExtra("mark");
