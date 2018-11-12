@@ -5,9 +5,6 @@ import java.io.Serializable;
 
 /**
  * <p>返回数据基类</p>
- *
- * @author rhino
- * @since Create on 2018/8/20.
  */
 public class BaseResult implements Serializable {
 

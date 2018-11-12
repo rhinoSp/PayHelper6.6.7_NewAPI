@@ -33,9 +33,6 @@ import okio.Sink;
 
 /**
  * <p>HTTP请求工具类</p>
- *
- * @author rhino
- * @since Create on 2018/8/20.
  */
 public class HttpRequest {
 
