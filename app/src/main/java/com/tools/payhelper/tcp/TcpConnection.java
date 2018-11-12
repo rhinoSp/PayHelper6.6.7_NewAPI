@@ -58,7 +58,7 @@ public class TcpConnection extends Thread {
                     try {
                         InputStream inputStream = mSocket.getInputStream();
                         DataInputStream input = new DataInputStream(inputStream);
-                        byte[] b = new byte[4 * 1024];
+                        byte[] b = new byte[2 * 1024];
                         int length = 0;
                         while ((length = input.read(b)) != -1) {
                             String msg = new String(b, 0, length, "utf-8").replace("\0", "");

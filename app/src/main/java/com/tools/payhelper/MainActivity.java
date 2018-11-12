@@ -24,6 +24,7 @@ import com.tools.payhelper.tcp.TcpSettingActivity;
 import com.tools.payhelper.tcp.VerifyData;
 import com.tools.payhelper.utils.AbSharedUtil;
 import com.tools.payhelper.utils.DBManager;
+import com.tools.payhelper.utils.ExecutorManager;
 import com.tools.payhelper.utils.JsonHelper;
 import com.tools.payhelper.utils.LogToFile;
 import com.tools.payhelper.utils.LogUtils;
@@ -107,6 +108,8 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                         broadCastIntent.putExtra("mark", "test"+time);
                         broadCastIntent.putExtra("money", "0.01");
                         sendBroadcast(broadCastIntent);
+
+//                        request(ALIPAY);
                     }
                 });
         this.findViewById(R.id.start_wechat).setOnClickListener(
@@ -133,6 +136,8 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                         broadCastIntent.putExtra("mark", "test" + time);
                         broadCastIntent.putExtra("money", "0.01");
                         sendBroadcast(broadCastIntent);
+
+//                        request(QQ);
                     }
                 });
         this.findViewById(R.id.setting).setOnClickListener(
@@ -155,6 +160,8 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                             ((TextView)findViewById(R.id.tcp_connect)).setText("TCP连接");
                             TcpConnection.getInstance().close();
                         } else {
+                            Toast.makeText(getApplicationContext(), "连接中...", Toast.LENGTH_LONG).show();
+                            PayHelperUtils.sendmsg(getApplicationContext(), "连接中...");
                             String ip = AbSharedUtil.getString(getApplicationContext(), "tcp_ip");
                             int port = AbSharedUtil.getInt(getApplicationContext(), "tcp_port");
                             String verify = AbSharedUtil.getString(getApplicationContext(), "tcp_verify");
@@ -286,9 +293,11 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
         if (verifyData == null) {
             return;
         }
+        if (verifyData.type != VerifyData.TYPE_Ping) {
+            PayHelperUtils.sendmsg(getApplicationContext(), verifyData.res);
+        }
         switch (verifyData.type) {
             case VerifyData.TYPE_KeyOK:
-                PayHelperUtils.sendmsg(getApplicationContext(), "连接成功：" + data);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -298,7 +307,6 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                 });
                 break;
             case VerifyData.TYPE_KeyNO:
-                PayHelperUtils.sendmsg(getApplicationContext(), "连接失败：" + data);
                 TcpConnection.getInstance().close();
                 runOnUiThread(new Runnable() {
                     @Override
@@ -308,7 +316,6 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                 });
                 break;
             case VerifyData.TYPE_Interactive:
-                PayHelperUtils.sendmsg(getApplicationContext(), "请求二维码：" + data);
                 if (verifyData.InOutData == null || TextUtils.isEmpty(verifyData.InOutData.data)) {
                     return;
                 }
@@ -371,8 +378,31 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                         dt = intent.getStringExtra("time");
                     }
                     sendmsg("收到" + typestr + "订单,订单号：" + no + "金额：" + money + "备注：" + mark);
+
+                    String account = "";
+                    if (type.equals("alipay")) {
+                        account = AbSharedUtil.getString(getApplicationContext(), "alipay");
+                    } else if (type.equals("wechat")) {
+                        account = AbSharedUtil.getString(getApplicationContext(), "wechat");
+                    } else if (type.equals("qq")) {
+                        account = AbSharedUtil.getString(getApplicationContext(), "qq");
+                    }
+                    String signkey = AbSharedUtil.getString(getApplicationContext(), "signkey");
+                    String sign = MD5.md5(dt + mark + money + no + type + signkey);
+                    VerifyData data = VerifyData.createPayResultData(no, money, mark, type,
+                            dt,
+                            account,
+                            sign
+                    );
+
+                    ExecutorManager.executeTask(new Runnable() {
+                        @Override
+                        public void run() {
+                            TcpConnection.getInstance().send(JsonHelper.toJson(data));
+                        }
+                    });
+
                     notifyapi(type, no, money, mark, dt);
-                    TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayResultData(no, money, mark, type, payCodeData != null ? payCodeData.account : "")));
                 } else if (intent.getAction().contentEquals(QRCODERECEIVED_ACTION)) {
                     String money = intent.getStringExtra("money");
                     String mark = intent.getStringExtra("mark");
@@ -455,7 +485,7 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                     }
                 }
             } catch (Exception e) {
-                PayHelperUtils.sendmsg(context, "BillReceived异常" + e.getMessage());
+                PayHelperUtils.sendmsg(context, "BillReceived异常" + e.toString());
             }
         }
 
