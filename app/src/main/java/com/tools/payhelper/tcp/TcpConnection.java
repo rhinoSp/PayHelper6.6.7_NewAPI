@@ -31,6 +31,7 @@ public class TcpConnection extends Thread {
 
     private OnTcpResultListener mOnTcpResultListener;
     private long mLastHeartBeatTimestamp;
+    private HeartBeatThread mHeartBeatThread;
 
     private static TcpConnection instance = null;
     public static TcpConnection getInstance() {
@@ -97,7 +98,8 @@ public class TcpConnection extends Thread {
             LogUtils.i("Send verify success, " + data);
 
             // heart beat
-            new HeartBeatThread().start();
+            mHeartBeatThread = new HeartBeatThread();
+            mHeartBeatThread.start();
         } catch (IOException e) {
             LogUtils.e(e.toString());
             mOnTcpResultListener.onFailed(e.toString());
@@ -175,6 +177,10 @@ public class TcpConnection extends Thread {
         closeReader(mBufferedReader);
         closeWriter(mPrintWriter);
         closeSocket(mSocket);
+        if (mHeartBeatThread != null) {
+            mHeartBeatThread.interrupt();
+            mHeartBeatThread = null;
+        }
         instance = null;
     }
 

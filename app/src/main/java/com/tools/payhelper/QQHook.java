@@ -2,14 +2,12 @@ package com.tools.payhelper;
 
 
 
-import com.tools.payhelper.utils.LogToFile;
 import com.tools.payhelper.utils.PayHelperUtils;
 import com.tools.payhelper.utils.StringUtils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;

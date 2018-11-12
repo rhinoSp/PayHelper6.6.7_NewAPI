@@ -1,5 +1,7 @@
 package com.tools.payhelper.tcp;
 
+import com.tools.payhelper.utils.JsonHelper;
+
 /**
  * @since Create on 2018/11/8.
  */
@@ -7,11 +9,12 @@ public class VerifyData {
 
     public static final int TYPE_Frist = 9; //第一次验证
     public static final int TYPE_Ping = 0; //心跳 20s/次
-    public static final int TYPE_Interactive = 5; // 交互
     public static final int TYPE_KeyOK = 1; //验证成功
     public static final int TYPE_KeyNO = 2;  //验证失败
     public static final int TYPE_ResOK = 3; //获取数据成功
     public static final int TYPE_ResNO = 4;  //获取数据失败
+    public static final int TYPE_Interactive = 5; // 交互
+    public static final int TYPE_SuccTransaction = 6; // 付款的订单
 
 
     /**
@@ -48,13 +51,13 @@ public class VerifyData {
         }
     }
 
-    public static class Pay {
+    public static class PayResult {
         public String no;
         public String money;
         public String mark;
         public String type;
 
-        public Pay(String no, String money, String mark, String type) {
+        public PayResult(String no, String money, String mark, String type) {
             this.no = no;
             this.money = money;
             this.mark = mark;
@@ -80,6 +83,13 @@ public class VerifyData {
         VerifyData data = new VerifyData();
         data.type = TYPE_Interactive;
         data.InOutData = InOut.pay(payData);
+        return data;
+    }
+
+    public static VerifyData createPayResultData(String no, String money, String mark, String type) {
+        VerifyData data = new VerifyData();
+        data.type = TYPE_SuccTransaction;
+        data.InOutData = InOut.pay(JsonHelper.toJson(new PayResult(no, money, mark, type)));
         return data;
     }
 

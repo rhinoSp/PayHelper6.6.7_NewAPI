@@ -145,19 +145,24 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
 
                     @Override
                     public void onClick(View arg0) {
-                        String ip = AbSharedUtil.getString(getApplicationContext(), "tcp_ip");
-                        int port = AbSharedUtil.getInt(getApplicationContext(), "tcp_port");
-                        String verify = AbSharedUtil.getString(getApplicationContext(), "tcp_verify");
-                        if (TextUtils.isEmpty(ip) || port == 0 || TextUtils.isEmpty(verify)) {
-                            Toast.makeText(getApplicationContext(), "请配置IP、端口和认证信息", Toast.LENGTH_LONG).show();
-                            return;
+                        String text = ((TextView)findViewById(R.id.tcp_connect)).getText().toString();
+                        if ("断开连接".equals(text)) {
+                            PayHelperUtils.sendmsg(getApplicationContext(), "断开连接");
+                            ((TextView)findViewById(R.id.tcp_connect)).setText("TCP连接");
+                            TcpConnection.getInstance().close();
+                        } else {
+                            String ip = AbSharedUtil.getString(getApplicationContext(), "tcp_ip");
+                            int port = AbSharedUtil.getInt(getApplicationContext(), "tcp_port");
+                            String verify = AbSharedUtil.getString(getApplicationContext(), "tcp_verify");
+                            if (TextUtils.isEmpty(ip) || port == 0 || TextUtils.isEmpty(verify)) {
+                                Toast.makeText(getApplicationContext(), "请配置IP、端口和认证信息", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            TcpConnection.getInstance().close();
+                            TcpConnection.getInstance().init(ip, port, verify);
+                            TcpConnection.getInstance().setOnTcpResultListener(MainActivity.this);
+                            TcpConnection.getInstance().start();
                         }
-                        TcpConnection.getInstance().close();
-                        TcpConnection.getInstance().init(ip, port, verify);
-                        TcpConnection.getInstance().setOnTcpResultListener(MainActivity.this);
-                        TcpConnection.getInstance().start();
-
-//                        request(QQ);
 //                        request(ALIPAY);
                     }
                 });
@@ -278,7 +283,28 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
             return;
         }
         switch (verifyData.type) {
+            case VerifyData.TYPE_KeyOK:
+                PayHelperUtils.sendmsg(getApplicationContext(), "连接成功：" + data);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((TextView)findViewById(R.id.tcp_connect)).setText("断开连接");
+                        Toast.makeText(getApplicationContext(), "连接成功", Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
+            case VerifyData.TYPE_KeyNO:
+                PayHelperUtils.sendmsg(getApplicationContext(), "连接失败：" + data);
+                TcpConnection.getInstance().close();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "连接失败：" + verifyData.res, Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
             case VerifyData.TYPE_Interactive:
+                PayHelperUtils.sendmsg(getApplicationContext(), "请求二维码：" + data);
                 if (verifyData.InOutData == null || TextUtils.isEmpty(verifyData.InOutData.data)) {
                     return;
                 }
@@ -300,6 +326,7 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
             public void onResponse(Call call, Response response) throws IOException {
                 String data = response.body().string();
                 LogUtils.d("data = " + data);
+                PayHelperUtils.sendmsg(getApplicationContext(), "二维码请求结果：" + data);
 
                 TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayData(data)));
             }
@@ -339,6 +366,7 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                     }
                     sendmsg("收到" + typestr + "订单,订单号：" + no + "金额：" + money + "备注：" + mark);
                     notifyapi(type, no, money, mark, dt);
+                    TcpConnection.getInstance().send(JsonHelper.toJson(VerifyData.createPayResultData(no, money, mark, type)));
                 } else if (intent.getAction().contentEquals(QRCODERECEIVED_ACTION)) {
                     String money = intent.getStringExtra("money");
                     String mark = intent.getStringExtra("mark");
