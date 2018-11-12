@@ -74,31 +74,32 @@ public class SettingActivity extends Activity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.save:
 			String returnurl=et_returnurl.getText().toString();
-			if(TextUtils.isEmpty(returnurl)){
-				Toast.makeText(getApplicationContext(), "同步跳转地址不能为空！", Toast.LENGTH_LONG).show();
-				return;
-			}else{
+//			if(TextUtils.isEmpty(returnurl)){
+//				Toast.makeText(getApplicationContext(), "同步跳转地址不能为空！", Toast.LENGTH_LONG).show();
+//				return;
+//			}else{
 				AbSharedUtil.putString(getApplicationContext(), "returnurl", returnurl);
-			}
+//			}
 			String notifyurl=et_notifyurl.getText().toString();
-			if(TextUtils.isEmpty(notifyurl)){
-				Toast.makeText(getApplicationContext(), "异步通知地址不能为空！", Toast.LENGTH_LONG).show();
-				return;
-			}else{
+//			if(TextUtils.isEmpty(notifyurl)){
+//				Toast.makeText(getApplicationContext(), "异步通知地址不能为空！", Toast.LENGTH_LONG).show();
+//				return;
+//			}else{
 				AbSharedUtil.putString(getApplicationContext(), "notifyurl", notifyurl);
-			}
+//			}
 			String signkey=et_signkey.getText().toString();
-			if(TextUtils.isEmpty(signkey)){
-				Toast.makeText(getApplicationContext(), "signkey不能为空！", Toast.LENGTH_LONG).show();
-				return;
-			}else{
+//			if(TextUtils.isEmpty(signkey)){
+//				Toast.makeText(getApplicationContext(), "signkey不能为空！", Toast.LENGTH_LONG).show();
+//				return;
+//			}else{
 				AbSharedUtil.putString(getApplicationContext(), "signkey", signkey);
-			}
+//			}
 			String wxid=et_wxid.getText().toString();
 			if(!TextUtils.isEmpty(wxid)){
 				AbSharedUtil.putString(getApplicationContext(), "account", wxid);
 			}
 			Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_LONG).show();
+			finish();
 			break;
 		case R.id.back:
 			finish();
