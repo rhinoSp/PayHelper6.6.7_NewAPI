@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+static def buildTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "28.0.3"
@@ -11,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField  "String", "BUILD_TIME", "\"${buildTime()}\""
     }
     buildTypes {
         release {

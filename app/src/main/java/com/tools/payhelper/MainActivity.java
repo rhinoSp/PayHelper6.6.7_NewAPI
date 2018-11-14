@@ -26,6 +26,7 @@ import com.tools.payhelper.utils.AbSharedUtil;
 import com.tools.payhelper.utils.DBManager;
 import com.tools.payhelper.utils.ExecutorManager;
 import com.tools.payhelper.utils.JsonHelper;
+import com.tools.payhelper.utils.LauncherLimitUtils;
 import com.tools.payhelper.utils.LogToFile;
 import com.tools.payhelper.utils.LogUtils;
 import com.tools.payhelper.utils.MD5;
@@ -86,6 +87,8 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LauncherLimitUtils.checkLauncherLimit(10);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         console = (TextView) findViewById(R.id.console);
