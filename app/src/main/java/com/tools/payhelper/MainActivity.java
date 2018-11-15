@@ -163,8 +163,6 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                             ((TextView)findViewById(R.id.tcp_connect)).setText("TCP连接");
                             TcpConnection.getInstance().close();
                         } else {
-                            Toast.makeText(getApplicationContext(), "连接中...", Toast.LENGTH_LONG).show();
-                            PayHelperUtils.sendmsg(getApplicationContext(), "连接中...");
                             String ip = AbSharedUtil.getString(getApplicationContext(), "tcp_ip");
                             int port = AbSharedUtil.getInt(getApplicationContext(), "tcp_port");
                             String verify = AbSharedUtil.getString(getApplicationContext(), "tcp_verify");
@@ -172,6 +170,8 @@ public class MainActivity extends Activity implements TcpConnection.OnTcpResultL
                                 Toast.makeText(getApplicationContext(), "请配置IP、端口和认证信息", Toast.LENGTH_LONG).show();
                                 return;
                             }
+                            Toast.makeText(getApplicationContext(), "连接中...", Toast.LENGTH_LONG).show();
+                            PayHelperUtils.sendmsg(getApplicationContext(), "连接中...");
                             TcpConnection.getInstance().close();
                             TcpConnection.getInstance().init(ip, port, verify);
                             TcpConnection.getInstance().setOnTcpResultListener(MainActivity.this);
