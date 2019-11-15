@@ -6,7 +6,6 @@ static def buildTime() {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.tools.payhelper1"
